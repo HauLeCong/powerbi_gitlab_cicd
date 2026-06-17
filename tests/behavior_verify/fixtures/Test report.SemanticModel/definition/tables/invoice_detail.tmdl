@@ -1,0 +1,198 @@
+table invoice_detail
+	lineageTag: 74f4a273-fb81-4af9-a8d0-d85f1d6cf667
+
+	column 'Invoice Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0e4bb8fd-d2c1-4e9a-85bf-3002e4e7eba2
+		summarizeBy: sum
+		sourceColumn: Invoice Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Line Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: e2fe7a76-1ff2-4222-88ad-e781cac78869
+		summarizeBy: sum
+		sourceColumn: Line Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 07949f12-383f-4be1-bcd9-6d0d271809b6
+		summarizeBy: count
+		sourceColumn: Product ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Warehouse ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 76a30d31-74ee-4fe2-9d3d-07f4e72d78e1
+		summarizeBy: count
+		sourceColumn: Warehouse ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordered Quantity'
+		dataType: double
+		lineageTag: c8d0c46e-59e4-42c4-8c3e-28b273edbd24
+		summarizeBy: sum
+		sourceColumn: Ordered Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shipped Quantity'
+		dataType: double
+		lineageTag: ea213be3-1726-462c-9d1c-2fd8c864c574
+		summarizeBy: sum
+		sourceColumn: Shipped Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Invoiced Quantity'
+		dataType: double
+		lineageTag: 5d2e100d-ce2f-4aa3-b17e-6b9bd02fe866
+		summarizeBy: sum
+		sourceColumn: Invoiced Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'List Price'
+		dataType: double
+		lineageTag: 2afaa9a6-d753-4deb-a48f-e866497464fe
+		summarizeBy: sum
+		sourceColumn: List Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Order Price'
+		dataType: double
+		lineageTag: c6466d44-6891-4857-be52-401aeb06eb9f
+		summarizeBy: sum
+		sourceColumn: Order Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unit Cost'
+		dataType: double
+		lineageTag: cda3ea54-0f4e-47c8-b284-5d330b93f522
+		summarizeBy: sum
+		sourceColumn: Unit Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column U/M
+		dataType: string
+		lineageTag: 335a815c-b646-4b8c-a0d7-22eed1d60fc3
+		summarizeBy: none
+		sourceColumn: U/M
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordered Quantity STD UM'
+		dataType: double
+		lineageTag: 18154abc-d15f-475b-85ce-e788e5af1e24
+		summarizeBy: sum
+		sourceColumn: Ordered Quantity STD UM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shipped Quantity STD UM'
+		dataType: double
+		lineageTag: aabbcd78-973f-48fd-b6ca-5a2ebe1d234f
+		summarizeBy: sum
+		sourceColumn: Shipped Quantity STD UM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Invoiced Quantity STD UM'
+		dataType: double
+		lineageTag: d5d68f26-8895-4df1-9920-788ea176f42d
+		summarizeBy: sum
+		sourceColumn: Invoiced Quantity STD UM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'List Price STD UM'
+		dataType: double
+		lineageTag: 7cee2072-3d84-40d8-8b0a-fb57a2383155
+		summarizeBy: sum
+		sourceColumn: List Price STD UM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Order Price STD UM'
+		dataType: double
+		lineageTag: a5b53c47-6e68-41a5-934e-5fa5a3b61bd7
+		summarizeBy: sum
+		sourceColumn: Order Price STD UM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unit Cost STD UM'
+		dataType: double
+		lineageTag: 5670c81d-247b-4b93-960a-8cef0a1e8aa3
+		summarizeBy: sum
+		sourceColumn: Unit Cost STD UM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Line Discount %'
+		dataType: double
+		lineageTag: ee12d8b7-8978-4550-af00-e06ab20880b9
+		summarizeBy: sum
+		sourceColumn: Line Discount %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Line Type'
+		dataType: string
+		lineageTag: dc22ffc7-0922-496f-8dcb-49f85d6343a9
+		summarizeBy: none
+		sourceColumn: Line Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition invoice_detail = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-dc95f786-1d27.cloud.databricks.com", "/sql/1.0/warehouses/51a3e2a0a190535b", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    test_Database = Source{[Name="test",Kind="Database"]}[Data],
+				    default_Schema = test_Database{[Name="default",Kind="Schema"]}[Data],
+				    invoice_detail_Table = default_Schema{[Name="invoice_detail",Kind="Table"]}[Data]
+				in
+				    invoice_detail_Table
+
+	annotation PBI_ResultType = Table
+

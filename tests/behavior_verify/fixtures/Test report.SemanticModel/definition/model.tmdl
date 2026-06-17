@@ -1,0 +1,23 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["invoice_detail","RangeStart","RangeEnd","invoice_header"]
+
+ref table invoice_detail
+ref table invoice_header
+ref table DateTableTemplate_53658c0a-13aa-4882-9a19-5a35576d1034
+ref table LocalDateTable_da0bde59-6297-4303-87df-7dd17f4a6b99
+ref table LocalDateTable_5b93949a-2fb8-4236-be4e-4591957b8b54
+ref table LocalDateTable_bc2da155-066f-4dd2-a53f-3c56854b1911
+ref table LocalDateTable_8116ec4c-1c52-449c-8140-86c9af6b3b21
+ref table LocalDateTable_5d15bd1b-4ca9-4e88-85c0-c4b02ce474b6
+
+ref cultureInfo en-US
+
