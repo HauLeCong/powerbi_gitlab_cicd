@@ -1,0 +1,34 @@
+[project]
+name = "powerbi-gitlab"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "haulc",email = "haulc@inter-k.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "fabric-cicd (>=1.1.0,<2.0.0)",
+    "msal (>=1.37.0,<2.0.0)",
+    "python-dotenv (>=1.0.0,<2.0.0)",
+    "requests (>=2.32.0,<3.0.0)",
+    "pytest (>=9.0.3,<10.0.0)",
+]
+
+[tool.poetry]
+packages = [
+    {include = "powerbi_gitlab", from = "src"},
+    {include = "core_api", from = "src"},
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "integration: needs Azure credentials in tests/.test.env and network access",
+    "behavior_validate: push local definition via Fabric API, pull back, compare base64",
+]

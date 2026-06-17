@@ -1,0 +1,171 @@
+table invoice_header
+	lineageTag: ff3f7739-41ce-44c8-b335-ee5373246e8a
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: month
+		rollingWindowPeriods: 1
+		incrementalGranularity: day
+		incrementalPeriods: 10
+		sourceExpression =
+			let
+			    Source = Databricks.Catalogs("dbc-dc95f786-1d27.cloud.databricks.com", "/sql/1.0/warehouses/51a3e2a0a190535b", null),
+			    test_Database = Source{[Name="test",Kind="Database"]}[Data],
+			    default_Schema = test_Database{[Name="default",Kind="Schema"]}[Data],
+			    invoice_header_Table = default_Schema{[Name="invoice_header",Kind="Table"]}[Data],
+			    #"Filtered Rows" = Table.SelectRows(invoice_header_Table, each [Order Date] >= RangeStart and [Order Date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
+	column 'Invoice Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: faef32d4-3c6d-4109-8292-2ca4a304f547
+		summarizeBy: sum
+		sourceColumn: Invoice Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ceef6c6-c72d-4334-ba95-6af51cda6164
+		summarizeBy: count
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship To ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9994536e-b222-42c8-af67-5f73a313b711
+		summarizeBy: count
+		sourceColumn: Ship To ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salesperson ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: d7e5319e-e2ff-4372-a90f-4dc3c8bb9a6f
+		summarizeBy: count
+		sourceColumn: Salesperson ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 437a0dd1-f9c3-4759-8cbe-7d2c22e7128b
+		summarizeBy: sum
+		sourceColumn: Order Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer PO Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: f6325b62-c5ae-4464-9dba-409fe8bfc0a7
+		summarizeBy: sum
+		sourceColumn: Customer PO Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d71c71a2-6cee-4588-9a5b-c9ad38b82073
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		variation Variation
+			isDefault
+			relationship: 60618dfb-4cc0-45ad-a35c-c3376b6cea11
+			defaultHierarchy: LocalDateTable_da0bde59-6297-4303-87df-7dd17f4a6b99.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Requested Ship Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bfd419dc-462c-4670-b143-0a201518c845
+		summarizeBy: none
+		sourceColumn: Requested Ship Date
+
+		variation Variation
+			isDefault
+			relationship: a221970f-72d6-4fe7-bbdb-2d4bfaffe820
+			defaultHierarchy: LocalDateTable_5b93949a-2fb8-4236-be4e-4591957b8b54.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Promised Ship Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 52627244-cd8e-4a08-8c63-7baa44c8e8b9
+		summarizeBy: none
+		sourceColumn: Promised Ship Date
+
+		variation Variation
+			isDefault
+			relationship: 77e583f3-ed29-4898-bbd2-907be9f0fe7d
+			defaultHierarchy: LocalDateTable_bc2da155-066f-4dd2-a53f-3c56854b1911.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Ship Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 41acfccb-2c9b-4c13-b6f6-39886284ffce
+		summarizeBy: none
+		sourceColumn: Actual Ship Date
+
+		variation Variation
+			isDefault
+			relationship: 1c5c66b0-26b8-44fb-8955-d097b73e9839
+			defaultHierarchy: LocalDateTable_8116ec4c-1c52-449c-8140-86c9af6b3b21.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fdd417bb-a071-4634-b197-1a66295d337f
+		summarizeBy: none
+		sourceColumn: Invoice Date
+
+		variation Variation
+			isDefault
+			relationship: 54360b05-8012-4190-8f5f-918ec7adc1c7
+			defaultHierarchy: LocalDateTable_5d15bd1b-4ca9-4e88-85c0-c4b02ce474b6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Discount %'
+		dataType: double
+		lineageTag: 0344b927-a93a-4eff-a394-51f35e8eee72
+		summarizeBy: sum
+		sourceColumn: Invoice Discount %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition invoice_header = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-dc95f786-1d27.cloud.databricks.com", "/sql/1.0/warehouses/51a3e2a0a190535b", null),
+				    test_Database = Source{[Name="test",Kind="Database"]}[Data],
+				    default_Schema = test_Database{[Name="default",Kind="Schema"]}[Data],
+				    invoice_header_Table = default_Schema{[Name="invoice_header",Kind="Table"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(invoice_header_Table, each [Order Date] >= RangeStart and [Order Date] <= RangeEnd)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
+
+	annotation PBI_NavigationStepName = Navigation
+

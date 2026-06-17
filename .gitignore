@@ -1,0 +1,11 @@
+tests/.test.env
+!tests/.test.env.example
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+fabric_cicd.error.log
+
+# Local POC / round-trip comparison artifacts
+.poc_roundtrip/
+.poc*/

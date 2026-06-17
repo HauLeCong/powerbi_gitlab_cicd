@@ -1,0 +1,33 @@
+# fabric-cicd deploy config — edit workspace IDs and paths here.
+# CI picks the environment via FABRIC_ENVIRONMENT (DEV / PPE / PROD).
+# https://microsoft.github.io/fabric-cicd/0.3.0/how_to/config_deployment/
+
+features:
+  - enable_environment_variable_replacement
+  - enable_experimental_features
+  - enable_items_to_include
+
+core:
+  repository_directory: "asset"
+
+  workspace_id:
+    DEV: "ba3aa36e-09b5-4cb8-8d82-80d862e2acb5"
+    PPE: "cdf01f6d-408d-4523-97cf-f956a805e5f7"
+    PROD: "a005e128-ad57-41fe-ac75-3e8f139340a4"
+
+  item_types_in_scope:
+    - Report
+    - SemanticModel
+
+publish:
+  skip:
+    DEV: false
+    PPE: false
+    PROD: false
+
+unpublish:
+  exclude_regex: ".*_do_not_delete"
+  skip:
+    DEV: true
+    PPE: true
+    PROD: false

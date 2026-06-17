@@ -1,0 +1,25 @@
+relationship 60618dfb-4cc0-45ad-a35c-c3376b6cea11
+	joinOnDateBehavior: datePartOnly
+	fromColumn: invoice_header.'Order Date'
+	toColumn: LocalDateTable_da0bde59-6297-4303-87df-7dd17f4a6b99.Date
+
+relationship a221970f-72d6-4fe7-bbdb-2d4bfaffe820
+	joinOnDateBehavior: datePartOnly
+	fromColumn: invoice_header.'Requested Ship Date'
+	toColumn: LocalDateTable_5b93949a-2fb8-4236-be4e-4591957b8b54.Date
+
+relationship 77e583f3-ed29-4898-bbd2-907be9f0fe7d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: invoice_header.'Promised Ship Date'
+	toColumn: LocalDateTable_bc2da155-066f-4dd2-a53f-3c56854b1911.Date
+
+relationship 1c5c66b0-26b8-44fb-8955-d097b73e9839
+	joinOnDateBehavior: datePartOnly
+	fromColumn: invoice_header.'Actual Ship Date'
+	toColumn: LocalDateTable_8116ec4c-1c52-449c-8140-86c9af6b3b21.Date
+
+relationship 54360b05-8012-4190-8f5f-918ec7adc1c7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: invoice_header.'Invoice Date'
+	toColumn: LocalDateTable_5d15bd1b-4ca9-4e88-85c0-c4b02ce474b6.Date
+

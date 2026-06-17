@@ -1,0 +1,57 @@
+table Exported
+	lineageTag: 272dfd7e-7a88-4e62-9669-30a6c1fd43f3
+
+	column STT
+		dataType: int64
+		formatString: 0
+		lineageTag: d0ec6f0a-a7b7-4ed6-9143-fcab5fd80c37
+		summarizeBy: sum
+		sourceColumn: STT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tên đầy đủ'
+		dataType: string
+		lineageTag: db468a98-2c26-4686-9f37-54e3ed7f4eb6
+		summarizeBy: none
+		sourceColumn: Tên đầy đủ
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mã số doanh nghiệp'
+		dataType: string
+		lineageTag: 2c37bfd9-914a-463b-88da-326d7e03961d
+		summarizeBy: none
+		sourceColumn: Mã số doanh nghiệp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sàn niêm yết'
+		dataType: string
+		lineageTag: 5386e8a9-3950-45e0-a7dc-e30108682cd5
+		summarizeBy: none
+		sourceColumn: Sàn niêm yết
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mã chứng khoán'
+		dataType: string
+		lineageTag: a6a9312c-bd3f-444f-bf32-5290d42fbd07
+		summarizeBy: none
+		sourceColumn: Mã chứng khoán
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Exported = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Inter-K Member\Downloads\upcom_companies.xlsx"), null, true),
+				    Exported_Sheet = Source{[Item="Exported",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Exported_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"STT", Int64.Type}, {"Tên đầy đủ", type text}, {"Mã số doanh nghiệp", type text}, {"Sàn niêm yết", type text}, {"Mã chứng khoán", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
