@@ -191,9 +191,67 @@ Optional second step after publish. Removes **orphan** Report/SemanticModel item
 | **deploy** | `DefaultAzureCredential` (fabric-cicd) | CI: `AZURE_*` service principal — local: `az login` |
 | **pull** | Service principal (`core_api`) | `MS_*` env vars or `.env` |
 
+### 7.1 Azure service principal (Entra ID) — required for CI
+
+Create **one app registration** and reuse it for GitLab CI (`AZURE_*`) and pull (`MS_*`).
+
+#### Step 1: App registration (Entra ID)
+
+1. [Microsoft Entra admin center](https://entra.microsoft.com/) → **Applications** → **App registrations** → **New registration**.
+2. Name (e.g. `powerbi-gitlab-cicd`), single tenant, register.
+3. From **Overview**, copy:
+
+| Entra field | Environment variable |
+|-------------|----------------------|
+| Application (client) ID | `AZURE_CLIENT_ID` / `MS_CLIENT_ID` |
+| Directory (tenant) ID | `AZURE_TENANT_ID` / `MS_TENANT_ID` |
+
+#### Step 2: Client secret
+
+1. App → **Certificates & secrets** → **New client secret**.
+2. Copy the **Value** once → `AZURE_CLIENT_SECRET` / `MS_CLIENT_SECRET`.
+3. Store in GitLab CI/CD variables (masked; disable **Expand variable reference**).
+
+#### Step 3: API permissions
+
+1. App → **API permissions** → **Add a permission**.
+2. **Microsoft Fabric** and/or **Power BI Service** → **Application permissions**.
+3. Add permissions to read/write workspace items (e.g. Fabric `Workspace.ReadWrite.All`, `Item.ReadWrite.All` — names vary by tenant).
+4. **Grant admin consent** (Entra admin required).
+
+#### Step 4: Fabric / Power BI admin tenant setting
+
+1. [Fabric admin portal](https://app.fabric.microsoft.com/admin-portal) → **Tenant settings**.
+2. Under **Developer settings** (or **Admin API settings**), enable:
+   - **Service principals can use Fabric APIs**, and/or
+   - **Allow service principals to use Power BI APIs**
+3. Optionally scope to a security group that includes this app.
+
+Without this step, authentication succeeds but Fabric API calls fail.
+
+#### Step 5: Add the service principal to each workspace
+
+For every workspace GUID in `config.yml` (DEV, PPE, PROD):
+
+1. Open the workspace in Fabric → **Manage access**.
+2. **Add people or groups** → search the **app registration display name** (the service principal).
+3. Role: **Admin** or **Member** (Admin if using unpublish on PROD).
+
+#### Step 6: Map to this repo
+
+| Use case | Variables |
+|----------|-----------|
+| GitLab CI deploy | `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID` |
+| Local deploy | Same `AZURE_*`, or `az login` |
+| Pull (default) | `MS_CLIENT_ID`, `MS_CLIENT_SECRET`, `MS_TENANT_ID` (same app values) |
+
+See [README — Azure service principal](README.md#azure-service-principal-entra-id) for a copy-paste checklist and token verification command.
+
 ### Deploy (GitLab CI)
 
-Set `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID` in CI/CD variables. fabric-cicd picks them up automatically — no `az login`.
+Set `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID` in CI/CD variables. Workspace GUIDs are in **`config.yml`**, not CI variables.
+
+**Protected variables:** only available on protected branches unless **Protected** is unchecked.
 
 ### Deploy (local)
 
