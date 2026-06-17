@@ -182,3 +182,7 @@ Controlled in `config.yml` under `unpublish` ([Configuration Deployment](https:/
 - [Bulk Export API](https://learn.microsoft.com/en-us/rest/api/fabric/core/items/bulk-export-item-definitions(beta)) — used by `pull.py`
 
 Full list: [docs/REQUIREMENTS.md §14](docs/REQUIREMENTS.md#14-documentation-links)
+
+## License
+
+MIT — see [LICENSE](LICENSE).
